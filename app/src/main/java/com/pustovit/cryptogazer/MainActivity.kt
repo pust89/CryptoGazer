@@ -10,6 +10,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import com.pustovit.cryptogazer.onboarding.OnboardingScreen
 import com.pustovit.cryptogazer.ui_kit.quotation.QuotationTestScreen
 import com.pustovit.cryptogazer.ui_kit.theme.CryptoGazerTheme
 
@@ -19,7 +20,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             CryptoGazerTheme {
-                QuotationTestScreen()
+                OnboardingScreen()
 //                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
 //                    Greeting(
 //                        name = "Android",
