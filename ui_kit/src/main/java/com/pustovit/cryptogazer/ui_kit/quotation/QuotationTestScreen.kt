@@ -46,7 +46,7 @@ fun QuotationTestScreen() {
                     ListItem(
                         state = item,
                         onEvent = viewModel::handleEvent,
-                        modifier = Modifier.animateItemPlacement() // Плавные анимации
+                       // modifier = Modifier.animateItemPlacement() // Плавные анимации
                     )
                 }
             )
