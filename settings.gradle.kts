@@ -21,4 +21,6 @@ dependencyResolutionManagement {
 
 rootProject.name = "CryptoGazer"
 include(":app")
- 
+include(":data")
+include(":onboarding")
+include(":ui_kit")

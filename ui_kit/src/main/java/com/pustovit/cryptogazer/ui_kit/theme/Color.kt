@@ -1,4 +1,4 @@
-package com.pustovit.cryptogazer.ui.theme
+package com.pustovit.cryptogazer.ui_kit.theme
 
 import androidx.compose.ui.graphics.Color
 

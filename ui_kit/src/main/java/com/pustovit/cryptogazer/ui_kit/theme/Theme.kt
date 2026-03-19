@@ -1,6 +1,5 @@
-package com.pustovit.cryptogazer.ui.theme
+package com.pustovit.cryptogazer.ui_kit.theme
 
-import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
