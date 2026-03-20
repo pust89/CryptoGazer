@@ -29,6 +29,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.pustovit.cryptogazer.ui_kit.onboarding.OnboardingTopCard
+import com.pustovit.cryptogazer.ui_kit.theme_2.palette.CryptoGazerPaletteLight
 
 
 @Composable
@@ -38,7 +39,7 @@ fun OnboardingScreen() {
         color = Color.Transparent,
         modifier = Modifier
             .fillMaxSize()
-            .background(brush = Brush.sweepGradient(listOf(Color.Cyan, Color.Magenta)))
+            .background(brush = CryptoGazerPaletteLight.fullScreenGradient)
             .systemBarsPadding()
     ) {
         Scaffold(
@@ -73,23 +74,23 @@ private fun TopCardsScreen(
     viewModel: OnboardingViewModel,
 ) {
     val needAppearanceAnimation = remember { mutableStateOf(true) }
-//    Column(modifier = Modifier.fillMaxSize()) {
-//        Row(
-//            modifier = Modifier
-//                .fillMaxWidth()
-//                .horizontalScroll(rememberScrollState())
-//        ) {
-//
-//            uiState.cards.forEach { cardState ->
-//                key(cardState.id) {
-//                    OnboardingTopCard(
-//                        state = cardState,
-//                        onEvent = viewModel::onOnboardingTopCardEvent
-//                    )
-//                }
-//            }
-//        }
-//    }
+    Column(modifier = Modifier.fillMaxSize()) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .horizontalScroll(rememberScrollState())
+        ) {
+
+            uiState.cards.forEach { cardState ->
+                key(cardState.id) {
+                    OnboardingTopCard(
+                        state = cardState,
+                        onEvent = viewModel::onOnboardingTopCardEvent
+                    )
+                }
+            }
+        }
+    }
 
 
     LaunchedEffect(Unit) {
