@@ -1,12 +1,19 @@
 package com.pustovit.cryptogazer.ui_kit.onboarding
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.requiredSize
 import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.BlurredEdgeTreatment
+import androidx.compose.ui.draw.blur
+import androidx.compose.ui.unit.DpSize
+import androidx.compose.ui.unit.dp
 
 @Immutable
 data class OnboardingTopCardState(
@@ -14,25 +21,30 @@ data class OnboardingTopCardState(
     val title: String,
     val selected: Boolean = false,
     val description: String = "",
-) {
-    sealed interface Event {
-        data class Click(val id: String) : Event
-    }
+    val requiredSize: DpSize = DpSize(width = 128.dp, height = 128.dp),
+)
+
+sealed interface OnboardingTopCardEvent {
+    data class Click(val id: String) : OnboardingTopCardEvent
 }
 
 @Composable
 fun OnboardingTopCard(
     state: OnboardingTopCardState,
-    onEvent: (OnboardingTopCardState.Event) -> Unit,
+    onEvent: (OnboardingTopCardEvent) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Card(
         modifier = modifier
-            .clickable { onEvent.invoke(OnboardingTopCardState.Event.Click(id = state.id)) }
+            .requiredSize(state.requiredSize)
+            .clickable { onEvent.invoke(OnboardingTopCardEvent.Click(id = state.id)) }
+            .blur(radius = 30.dp, edgeTreatment = BlurredEdgeTreatment.Unbounded)
+            .padding(16.dp)
     ) {
         Text(
             text = state.title,
             style = MaterialTheme.typography.titleMedium,
+            modifier = Modifier.align(Alignment.CenterHorizontally)
         )
     }
 }
