@@ -20,7 +20,7 @@ interface CryptoGazerPalette {
     val backgroundCard: Color
 }
 
-data object CryptoGazerPaletteLight : CryptoGazerPalette {
+internal data object CryptoGazerPaletteLight : CryptoGazerPalette {
     // Text zone
     override val textPrimary: Color = Color(0xFF0B0B0C)
     override val textSecondary: Color = Color(0xFF212125)
@@ -39,7 +39,7 @@ data object CryptoGazerPaletteLight : CryptoGazerPalette {
 
 }
 
-data object CryptoGazerPaletteDark : CryptoGazerPalette {
+internal data object CryptoGazerPaletteDark : CryptoGazerPalette {
     // Text zone
     override val textPrimary: Color = Color(0xFFECE6E6)
     override val textSecondary: Color = Color(0xFF8C8B8B)
