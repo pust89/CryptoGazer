@@ -21,7 +21,7 @@ data class OnboardingTopCardState(
     val title: String,
     val selected: Boolean = false,
     val description: String = "",
-    val requiredSize: DpSize = DpSize(width = 128.dp, height = 128.dp),
+    val requiredSize: DpSize = DpSize(width = 256.dp, height = 256.dp),
 )
 
 sealed interface OnboardingTopCardEvent {
@@ -38,12 +38,12 @@ fun OnboardingTopCard(
         modifier = modifier
             .requiredSize(state.requiredSize)
             .clickable { onEvent.invoke(OnboardingTopCardEvent.Click(id = state.id)) }
-            .blur(radius = 30.dp, edgeTreatment = BlurredEdgeTreatment.Unbounded)
+            .blur(radius = 4.dp, edgeTreatment = BlurredEdgeTreatment.Unbounded)
             .padding(16.dp)
     ) {
         Text(
             text = state.title,
-            style = MaterialTheme.typography.titleMedium,
+            style = MaterialTheme.typography.titleLarge,
             modifier = Modifier.align(Alignment.CenterHorizontally)
         )
     }

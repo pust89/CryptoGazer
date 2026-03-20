@@ -2,6 +2,7 @@ package com.pustovit.cryptogazer.onboarding
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.pustovit.cryptogazer.ui_kit.onboarding.OnboardingTopCardEvent
 import com.pustovit.cryptogazer.ui_kit.onboarding.OnboardingTopCardState
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -18,6 +19,10 @@ class OnboardingViewModel : ViewModel() {
             delay(2000)
             _uiState.emit(OnboardingState.TopCards(cards = getOnboardingTopCards()))
         }
+    }
+
+    fun onOnboardingTopCardEvent(event: OnboardingTopCardEvent) {
+
     }
 
     private fun getOnboardingTopCards(): List<OnboardingTopCardState> =
