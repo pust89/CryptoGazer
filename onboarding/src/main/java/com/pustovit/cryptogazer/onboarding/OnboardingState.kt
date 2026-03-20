@@ -11,6 +11,6 @@ sealed interface OnboardingState {
     data object Loading : OnboardingState
 
     @Immutable
-    data class TopCards(val cards: OnboardingTopCardState) : OnboardingState
+    data class TopCards(val cards: List<OnboardingTopCardState>) : OnboardingState
 
 }
