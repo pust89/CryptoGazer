@@ -14,11 +14,13 @@ import androidx.compose.ui.draw.BlurredEdgeTreatment
 import androidx.compose.ui.draw.blur
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
+import com.pustovit.cryptogazer.ui_kit.theme_2.palette.AppColorToken
 
 @Immutable
 data class OnboardingTopCardState(
     val id: String,
     val title: String,
+    val titleColor: AppColorToken,
     val selected: Boolean = false,
     val description: String = "",
     val requiredSize: DpSize = DpSize(width = 256.dp, height = 256.dp),

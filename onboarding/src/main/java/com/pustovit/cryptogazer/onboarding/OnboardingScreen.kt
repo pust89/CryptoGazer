@@ -25,11 +25,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.BlurredEdgeTreatment
 import androidx.compose.ui.draw.blur
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.pustovit.cryptogazer.ui_kit.onboarding.OnboardingTopCard
-import com.pustovit.cryptogazer.ui_kit.theme_2.palette.CryptoGazerPaletteLight
+import com.pustovit.cryptogazer.ui_kit.theme_2.palette.AppPaletteLight
 
 
 @Composable
@@ -39,7 +38,7 @@ fun OnboardingScreen() {
         color = Color.Transparent,
         modifier = Modifier
             .fillMaxSize()
-            .background(brush = CryptoGazerPaletteLight.fullScreenGradient)
+            .background(brush = AppPaletteLight.fullScreenGradient)
             .systemBarsPadding()
     ) {
         Scaffold(

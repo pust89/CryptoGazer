@@ -5,7 +5,7 @@ import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.dp
 
-object CryptoGazerShape {
+object AppShape {
     val rectangle: Shape = RectangleShape
     val roundedCornerShape = RoundedCornerShape(size = 16.dp)
     val roundedTopCornerShape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp)

@@ -5,7 +5,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 
-object CryptoGazerTypography {
+object AppTypography {
 
     val displayLarge = TextStyle(
         fontFamily = FontFamily.Default,
