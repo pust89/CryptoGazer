@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredSize
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
@@ -14,8 +15,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.BlurredEdgeTreatment
 import androidx.compose.ui.draw.blur
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
+import com.pustovit.cryptogazer.ui_kit.modifier.scaleClick
 import com.pustovit.cryptogazer.ui_kit.text.AppText
 import com.pustovit.cryptogazer.ui_kit.text.TextState
 import com.pustovit.cryptogazer.ui_kit.theme_2.AppTheme
@@ -42,13 +45,12 @@ fun OnboardingTopCard(
 
     Box(
         modifier = modifier
-            .requiredSize(state.requiredSize)
-            .background(
-                color = AppTheme.palette.backgroundCard,
-                shape = AppTheme.shapes.roundedCornerShape
-            )
-            .clickable { onEvent.invoke(OnboardingTopCardEvent.Click(id = state.id)) }
-            .padding(16.dp))
+            .scaleClick { onEvent.invoke(OnboardingTopCardEvent.Click(id = state.id)) }
+            .size(state.requiredSize)
+            .clip(AppTheme.shapes.roundedCornerShape)
+            .background(color = AppTheme.palette.backgroundCard)
+            .padding(16.dp)
+    )
     {
         Box(
             modifier = Modifier
