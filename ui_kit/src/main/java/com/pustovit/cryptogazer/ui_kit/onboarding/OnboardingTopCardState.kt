@@ -2,7 +2,9 @@ package com.pustovit.cryptogazer.ui_kit.onboarding
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredSize
 import androidx.compose.material3.MaterialTheme
@@ -38,7 +40,7 @@ fun OnboardingTopCard(
     modifier: Modifier = Modifier,
 ) {
 
-    Column(
+    Box(
         modifier = modifier
             .requiredSize(state.requiredSize)
             .background(
@@ -46,16 +48,24 @@ fun OnboardingTopCard(
                 shape = AppTheme.shapes.roundedCornerShape
             )
             .clickable { onEvent.invoke(OnboardingTopCardEvent.Click(id = state.id)) }
-            .blur(radius = 4.dp, edgeTreatment = BlurredEdgeTreatment.Unbounded)
-            .padding(16.dp)) {
+            .padding(16.dp))
+    {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .blur(radius = 4.dp, edgeTreatment = BlurredEdgeTreatment.Unbounded)
+        )
 
-        AppText(
-            state = state.title,
-            modifier = Modifier.align(Alignment.CenterHorizontally)
-        )
-        AppText(
-            state = state.description,
-            modifier = Modifier.align(Alignment.CenterHorizontally)
-        )
+        Column(modifier = Modifier.fillMaxSize()) {
+            AppText(
+                state = state.title,
+                modifier = Modifier.align(Alignment.CenterHorizontally)
+            )
+            AppText(
+                state = state.description,
+                modifier = Modifier.align(Alignment.CenterHorizontally)
+            )
+        }
     }
+
 }
