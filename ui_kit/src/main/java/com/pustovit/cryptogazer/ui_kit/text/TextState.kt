@@ -15,11 +15,9 @@ data class TextState(
 
 @Composable
 fun Text(state: TextState, modifier: Modifier) {
-
     BasicText(
         modifier = modifier,
         text = state.text,
-        style = state.style.color,
-        color = state.color.color
+        style = state.style.merge(color = state.color.themedColor),
     )
 }
