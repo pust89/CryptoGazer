@@ -28,7 +28,7 @@ import androidx.compose.ui.draw.blur
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.pustovit.cryptogazer.ui_kit.onboarding.OnboardingTopCard
-import com.pustovit.cryptogazer.ui_kit.theme_2.palette.AppPaletteLight
+import com.pustovit.cryptogazer.ui_kit.theme_2.AppTheme
 
 
 @Composable
@@ -38,7 +38,7 @@ fun OnboardingScreen() {
         color = Color.Transparent,
         modifier = Modifier
             .fillMaxSize()
-            .background(brush = AppPaletteLight.fullScreenGradient)
+            .background(brush = AppTheme.gradient.fullScreenGradient)
             .systemBarsPadding()
     ) {
         Scaffold(
@@ -54,9 +54,11 @@ fun OnboardingScreen() {
                 )
             }
         ) { paddingValues ->
-            Box(modifier = Modifier
-                .fillMaxSize()
-                .padding(paddingValues))
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(paddingValues)
+            )
             val uiState = viewModel.uiState.collectAsState()
             when (val state = uiState.value) {
                 OnboardingState.Loading -> LoadingScreen()
