@@ -4,6 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.pustovit.cryptogazer.ui_kit.onboarding.OnboardingTopCardEvent
 import com.pustovit.cryptogazer.ui_kit.onboarding.OnboardingTopCardState
+import com.pustovit.cryptogazer.ui_kit.text.TextState
+import com.pustovit.cryptogazer.ui_kit.theme_2.type.AppTypography
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -29,9 +31,15 @@ class OnboardingViewModel : ViewModel() {
         OnboardingTopCards.entries.map {
             OnboardingTopCardState(
                 id = it.name,
-                title = it.name,
+                title = TextState(
+                    text = it.name,
+                    style = AppTypography.titleMedium,
+                ),
                 selected = false,
-                description = it.name + it.name,
+                description = TextState(
+                    text = it.name + it.name,
+                    style = AppTypography.bodyMedium,
+                ),
             )
         }
 }

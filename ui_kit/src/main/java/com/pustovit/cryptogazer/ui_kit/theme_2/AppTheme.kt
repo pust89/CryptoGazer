@@ -30,7 +30,6 @@ object AppTheme {
     val typography: AppTypography
         @Composable @ReadOnlyComposable get() = LocalAppTypography.current
 
-
     val shapes: AppShape
         @Composable @ReadOnlyComposable get() = LocalAppShape.current
 }

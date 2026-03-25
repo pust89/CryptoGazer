@@ -14,7 +14,7 @@ data class TextState(
 )
 
 @Composable
-fun Text(state: TextState, modifier: Modifier) {
+fun AppText(state: TextState, modifier: Modifier) {
     BasicText(
         modifier = modifier,
         text = state.text,
