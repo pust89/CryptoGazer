@@ -1,4 +1,4 @@
-package com.pustovit.cryptogazer.domain.model
+package com.pustovit.cryptogazer.domain.model.resource
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
