@@ -14,6 +14,7 @@ import kotlinx.coroutines.flow.merge
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
+import kotlin.collections.forEach
 import kotlin.coroutines.CoroutineContext
 import com.pustovit.cryptogazer.tea.Event as E
 import com.pustovit.cryptogazer.tea.SideEffect as S
@@ -24,7 +25,7 @@ class Store<State, Event : E, SideEffect : S, Command : C>(
     val commandHandler: CommandHandler<Command, Event>,
     val scope: CoroutineScope,
     initialState: State,
-    val initialCommands: List<Command> = emptyList(),
+    val initialCommands: List<Command>? = null,
     val exceptionHandler: CoroutineExceptionHandler = CoroutineExceptionHandler { _, throwable ->
         throwable.printStackTrace()
     }
@@ -50,17 +51,28 @@ class Store<State, Event : E, SideEffect : S, Command : C>(
             merge(
                 commandHandler.getEvents(),
                 uiEvents
-            ).onStart {
-                if (initialCommands.isNotEmpty()) {
-                    initialCommands.forEach { command ->
+            ).map(reducer::reduce)
+                .onEach(::parseUpdate)
+                .onStart {
+                    initialCommands?.forEach { command ->
                         commandHandler.execute(command)
                     }
                 }
-            }.map { event ->
-                reducer.reduce(event)
-            }.onEach {
+                .launchIn(this)
+        }
+    }
 
-            }.launchIn(this)
+    private suspend fun parseUpdate(update: Update<State, SideEffect, Command>) {
+        update.state?.let { state ->
+            _state.emit(state)
+        }
+
+        update.sideEffects?.forEach { sideEffect ->
+            _sideEffects.emit(sideEffect)
+        }
+
+        update.commands?.forEach { command ->
+            commandHandler.execute(command)
         }
     }
 }

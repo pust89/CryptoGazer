@@ -16,12 +16,12 @@ class Update<State, SideEffect : S, Command : C> internal constructor(
         }
 
         fun <State, SideEffect : S, Command : C> from(
-            newState: State? = null,
+            state: State? = null,
             sideEffects: List<SideEffect>? = null,
             commands: List<Command>? = null
         ): Update<State, SideEffect, Command> {
             return Update(
-                state = newState,
+                state = state,
                 sideEffects = sideEffects,
                 commands = commands,
             )
