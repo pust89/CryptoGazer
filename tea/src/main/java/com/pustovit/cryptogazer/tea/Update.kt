@@ -11,6 +11,10 @@ class Update<State, SideEffect : S, Command : C> internal constructor(
 
     companion object {
 
+        fun <State, SideEffect : S, Command : C> nothing(): Update<State, SideEffect, Command> {
+            return Update()
+        }
+
         fun <State, SideEffect : S, Command : C> from(
             newState: State? = null,
             sideEffects: List<SideEffect>? = null,
