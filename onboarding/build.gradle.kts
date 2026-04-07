@@ -44,6 +44,7 @@ android {
 
 dependencies {
     implementation(project(":ui_kit"))
+    implementation(project(":tea"))
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
