@@ -59,11 +59,12 @@ fun OnboardingScreen() {
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(paddingValues)
-            )
-            val uiState = viewModel.uiState.collectAsState()
-            when (val state = uiState.value) {
-                OnboardingState.Loading -> LoadingScreen()
-                is OnboardingState.Details -> TopCardsScreen(state, viewModel)
+            ){
+                val uiState = viewModel.uiState.collectAsState()
+                when (val state = uiState.value) {
+                    OnboardingState.Loading -> LoadingScreen()
+                    is OnboardingState.Details -> TopCardsScreen(state, viewModel)
+                }
             }
         }
 

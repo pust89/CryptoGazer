@@ -19,15 +19,15 @@ import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
 import com.pustovit.cryptogazer.ui_kit.modifier.scaleClick
 import com.pustovit.cryptogazer.ui_kit.text.AppText
-import com.pustovit.cryptogazer.ui_kit.text.TextState
+import com.pustovit.cryptogazer.ui_kit.text.AppTextState
 import com.pustovit.cryptogazer.ui_kit.theme_2.AppTheme
 import com.pustovit.cryptogazer.ui_kit.theme_2.gradient.AppGradientToken
 
 @Immutable
 data class CardState(
     val id: String,
-    val title: TextState,
-    val description: TextState,
+    val title: AppTextState,
+    val description: AppTextState,
     val selected: Boolean = false,
     val requiredSize: DpSize = DpSize(width = 256.dp, height = 256.dp),
 ) {

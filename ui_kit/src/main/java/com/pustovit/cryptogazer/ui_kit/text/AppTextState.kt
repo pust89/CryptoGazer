@@ -7,14 +7,14 @@ import androidx.compose.ui.text.TextStyle
 import com.pustovit.cryptogazer.ui_kit.theme_2.palette.AppColorToken
 import com.pustovit.cryptogazer.ui_kit.theme_2.type.AppTypography
 
-data class TextState(
+data class AppTextState(
     val text: String,
     val color: AppColorToken = AppColorToken.TextPrimary,
     val style: TextStyle = AppTypography.bodyMedium,
 )
 
 @Composable
-fun AppText(state: TextState, modifier: Modifier) {
+fun AppText(state: AppTextState, modifier: Modifier) {
     BasicText(
         modifier = modifier,
         text = state.text,
