@@ -12,9 +12,10 @@ interface AppPalette {
     val textWarning: Color
     val textSuccess: Color
 
-    val backgroundTransparent: Color
+    val transparent: Color
     val backgroundPrimary: Color
     val backgroundCard: Color
+
 }
 
 internal data object AppPaletteLight : AppPalette {
@@ -28,10 +29,9 @@ internal data object AppPaletteLight : AppPalette {
     override val textSuccess: Color = Color(0xFF4CAF50)
 
     // Background zone
-    override val backgroundTransparent: Color = Color(0x00000000)
+    override val transparent: Color = Color(0x00000000)
     override val backgroundPrimary: Color = Color(0xFFD3D3D9)
     override val backgroundCard: Color = Color(0x80FFFFFF)
-
 }
 
 internal data object AppPaletteDark : AppPalette {
@@ -45,7 +45,7 @@ internal data object AppPaletteDark : AppPalette {
     override val textSuccess: Color = Color(0xFF4CAF50)
 
     // Background zone
-    override val backgroundTransparent: Color = Color(0x00000000)
+    override val transparent: Color = Color(0x00000000)
     override val backgroundPrimary: Color = Color(0xFF1E1D1D)
     override val backgroundCard: Color = Color(0x80000000)
 }

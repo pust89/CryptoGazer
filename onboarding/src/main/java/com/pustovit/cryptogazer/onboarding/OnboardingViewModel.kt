@@ -35,7 +35,7 @@ class OnboardingViewModel : ViewModel() {
                     text = it.name,
                     style = AppTypography.titleMedium,
                 ),
-                selected = false,
+                selected = true,
                 description = TextState(
                     text = it.name + it.name,
                     style = AppTypography.bodyMedium,

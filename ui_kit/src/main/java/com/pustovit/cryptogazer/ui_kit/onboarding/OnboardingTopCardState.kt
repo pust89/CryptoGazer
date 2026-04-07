@@ -1,16 +1,16 @@
 package com.pustovit.cryptogazer.ui_kit.onboarding
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredSize
-import androidx.compose.foundation.layout.size
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.BlurredEdgeTreatment
@@ -22,6 +22,7 @@ import com.pustovit.cryptogazer.ui_kit.modifier.scaleClick
 import com.pustovit.cryptogazer.ui_kit.text.AppText
 import com.pustovit.cryptogazer.ui_kit.text.TextState
 import com.pustovit.cryptogazer.ui_kit.theme_2.AppTheme
+import com.pustovit.cryptogazer.ui_kit.theme_2.gradient.AppGradientToken
 
 @Immutable
 data class OnboardingTopCardState(
@@ -30,7 +31,13 @@ data class OnboardingTopCardState(
     val description: TextState,
     val selected: Boolean = false,
     val requiredSize: DpSize = DpSize(width = 256.dp, height = 256.dp),
-)
+) {
+    internal val borderColorToken = if (selected) {
+        AppGradientToken.SelectedBorderGradient
+    } else {
+        AppGradientToken.Transparent
+    }
+}
 
 sealed interface OnboardingTopCardEvent {
     data class Click(val id: String) : OnboardingTopCardEvent
@@ -46,9 +53,16 @@ fun OnboardingTopCard(
     Box(
         modifier = modifier
             .scaleClick { onEvent.invoke(OnboardingTopCardEvent.Click(id = state.id)) }
-            .size(state.requiredSize)
-            .clip(AppTheme.shapes.roundedCornerShape)
+            .requiredSize(state.requiredSize)
+            .clip(shape = AppTheme.shapes.roundedCornerShape)
             .background(color = AppTheme.palette.backgroundCard)
+            .border(
+                border = BorderStroke(
+                    width = 4.dp,
+                    brush = state.borderColorToken.themedGradient
+                ),
+                shape = AppTheme.shapes.roundedCornerShape
+            )
             .padding(16.dp)
     )
     {

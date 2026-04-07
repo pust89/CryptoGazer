@@ -53,10 +53,10 @@ sealed interface AppColorToken  {
             get() = LocalAppPalette.current.textSuccess
     }
 
-    data object BackgroundTransparent : AppColorToken {
+    data object Transparent : AppColorToken {
         override val themedColor: Color
             @Composable @ReadOnlyComposable
-            get() = LocalAppPalette.current.backgroundTransparent
+            get() = LocalAppPalette.current.transparent
     }
 
     data object BackgroundPrimary : AppColorToken {

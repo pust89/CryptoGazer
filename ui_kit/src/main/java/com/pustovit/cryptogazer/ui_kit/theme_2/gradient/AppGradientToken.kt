@@ -15,4 +15,17 @@ sealed interface AppGradientToken {
             @Composable @ReadOnlyComposable
             get() = LocalAppGradient.current.fullScreenGradient
     }
+
+    data object SelectedBorderGradient : AppGradientToken {
+        override val themedGradient: Brush
+            @Composable @ReadOnlyComposable
+            get() = LocalAppGradient.current.selectedBorderGradient
+    }
+
+    data object Transparent : AppGradientToken {
+        override val themedGradient: Brush
+            @Composable @ReadOnlyComposable
+            get() = LocalAppGradient.current.transparent
+    }
+
 }
