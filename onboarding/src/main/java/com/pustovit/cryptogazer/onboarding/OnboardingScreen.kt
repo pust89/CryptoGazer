@@ -28,7 +28,7 @@ import androidx.compose.ui.draw.BlurredEdgeTreatment
 import androidx.compose.ui.draw.blur
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.pustovit.cryptogazer.ui_kit.onboarding.OnboardingTopCard
+import com.pustovit.cryptogazer.ui_kit.card.Card
 import com.pustovit.cryptogazer.ui_kit.theme_2.AppTheme
 
 
@@ -63,7 +63,7 @@ fun OnboardingScreen() {
             val uiState = viewModel.uiState.collectAsState()
             when (val state = uiState.value) {
                 OnboardingState.Loading -> LoadingScreen()
-                is OnboardingState.TopCards -> TopCardsScreen(state, viewModel)
+                is OnboardingState.Details -> TopCardsScreen(state, viewModel)
             }
         }
 
@@ -72,7 +72,7 @@ fun OnboardingScreen() {
 
 @Composable
 private fun TopCardsScreen(
-    uiState: OnboardingState.TopCards,
+    uiState: OnboardingState.Details,
     viewModel: OnboardingViewModel,
 ) {
     val needAppearanceAnimation = remember { mutableStateOf(true) }
@@ -86,7 +86,7 @@ private fun TopCardsScreen(
 
             uiState.cards.forEach { cardState ->
                 key(cardState.id) {
-                    OnboardingTopCard(
+                    Card(
                         state = cardState,
                         onEvent = viewModel::onOnboardingTopCardEvent
                     )

@@ -1,4 +1,4 @@
-package com.pustovit.cryptogazer.ui_kit.onboarding
+package com.pustovit.cryptogazer.ui_kit.card
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.BlurredEdgeTreatment
@@ -25,7 +24,7 @@ import com.pustovit.cryptogazer.ui_kit.theme_2.AppTheme
 import com.pustovit.cryptogazer.ui_kit.theme_2.gradient.AppGradientToken
 
 @Immutable
-data class OnboardingTopCardState(
+data class CardState(
     val id: String,
     val title: TextState,
     val description: TextState,
@@ -39,20 +38,20 @@ data class OnboardingTopCardState(
     }
 }
 
-sealed interface OnboardingTopCardEvent {
-    data class Click(val id: String) : OnboardingTopCardEvent
+sealed interface CardEvent {
+    data class Click(val id: String) : CardEvent
 }
 
 @Composable
-fun OnboardingTopCard(
-    state: OnboardingTopCardState,
-    onEvent: (OnboardingTopCardEvent) -> Unit,
+fun Card(
+    state: CardState,
+    onEvent: (CardEvent) -> Unit,
     modifier: Modifier = Modifier,
 ) {
 
     Box(
         modifier = modifier
-            .scaleClick { onEvent.invoke(OnboardingTopCardEvent.Click(id = state.id)) }
+            .scaleClick { onEvent.invoke(CardEvent.Click(id = state.id)) }
             .requiredSize(state.requiredSize)
             .clip(shape = AppTheme.shapes.roundedCornerShape)
             .background(color = AppTheme.palette.backgroundCard)

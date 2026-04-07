@@ -1,7 +1,7 @@
 package com.pustovit.cryptogazer.onboarding
 
 import androidx.compose.runtime.Immutable
-import com.pustovit.cryptogazer.ui_kit.onboarding.OnboardingTopCardState
+import com.pustovit.cryptogazer.ui_kit.card.CardState
 
 
 @Immutable
@@ -11,6 +11,9 @@ sealed interface OnboardingState {
     data object Loading : OnboardingState
 
     @Immutable
-    data class TopCards(val cards: List<OnboardingTopCardState>) : OnboardingState
+    data class Details(
+        val cards: List<CardState>,
+
+        ) : OnboardingState
 
 }

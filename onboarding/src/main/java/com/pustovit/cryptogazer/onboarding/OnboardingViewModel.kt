@@ -2,8 +2,8 @@ package com.pustovit.cryptogazer.onboarding
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.pustovit.cryptogazer.ui_kit.onboarding.OnboardingTopCardEvent
-import com.pustovit.cryptogazer.ui_kit.onboarding.OnboardingTopCardState
+import com.pustovit.cryptogazer.ui_kit.card.CardEvent
+import com.pustovit.cryptogazer.ui_kit.card.CardState
 import com.pustovit.cryptogazer.ui_kit.text.TextState
 import com.pustovit.cryptogazer.ui_kit.theme_2.type.AppTypography
 import kotlinx.coroutines.delay
@@ -19,23 +19,32 @@ class OnboardingViewModel : ViewModel() {
     init {
         viewModelScope.launch {
             delay(2000)
-            _uiState.emit(OnboardingState.TopCards(cards = getOnboardingTopCards()))
+            _uiState.emit(OnboardingState.Details(cards = getOnboardingTopCards()))
         }
     }
 
-    fun onOnboardingTopCardEvent(event: OnboardingTopCardEvent) {
-
+    fun onOnboardingTopCardEvent(event: CardEvent) = when (event) {
+        is CardEvent.Click -> viewModelScope.launch {
+            val currentState = uiState.value as? OnboardingState.Details ?: return@launch
+            _uiState.value = currentState.copy(
+                cards = currentState.cards.map { card ->
+                    card.copy(
+                        selected = card.id == event.id
+                    )
+                }
+            )
+        }
     }
 
-    private fun getOnboardingTopCards(): List<OnboardingTopCardState> =
+    private fun getOnboardingTopCards(): List<CardState> =
         OnboardingTopCards.entries.map {
-            OnboardingTopCardState(
+            CardState(
                 id = it.name,
                 title = TextState(
                     text = it.name,
                     style = AppTypography.titleMedium,
                 ),
-                selected = true,
+                selected = false,
                 description = TextState(
                     text = it.name + it.name,
                     style = AppTypography.bodyMedium,

@@ -6,7 +6,6 @@ import androidx.compose.ui.graphics.Color
 interface AppGradient {
     val fullScreenGradient: Brush
     val selectedBorderGradient: Brush
-
     val transparent: Brush
 }
 
@@ -19,7 +18,7 @@ internal data object AppGradientLight : AppGradient {
         Brush.linearGradient(colors = listOf(Color.Magenta, Color.Cyan, Color.Magenta))
 
     override val transparent: Brush =
-        Brush.linearGradient(colors = emptyList())
+        Brush.linearGradient(colors = listOf(Color.Transparent, Color.Transparent))
 }
 
 internal data object AppGradientDark : AppGradient {
@@ -31,5 +30,5 @@ internal data object AppGradientDark : AppGradient {
         Brush.linearGradient(colors = listOf(Color.Magenta, Color.Cyan, Color.Magenta))
 
     override val transparent: Brush =
-        Brush.linearGradient(colors = emptyList())
+        Brush.linearGradient(colors = listOf(Color.Transparent, Color.Transparent))
 }
