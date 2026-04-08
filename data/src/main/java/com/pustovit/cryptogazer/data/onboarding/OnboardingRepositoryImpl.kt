@@ -1,12 +1,13 @@
 package com.pustovit.cryptogazer.data.onboarding
 
 import com.pustovit.cryptogazer.domain.model.onboarding.OnboardingCard
+import com.pustovit.cryptogazer.domain.repository.OnboardingRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
-class OnboardingRepository {
+internal class OnboardingRepositoryImpl : OnboardingRepository {
 
-    fun getOnboardingCard(): Flow<List<OnboardingCard>> {
+    override fun getOnboardingCard(): Flow<List<OnboardingCard>> {
         return flow { emit(getMockOnboardingCard()) }
     }
 
