@@ -47,7 +47,10 @@ android {
 }
 
 dependencies {
+    implementation(project(":data"))
+    implementation(project(":domain"))
     implementation(project(":ui_kit"))
+
     implementation(project(":onboarding"))
 
     ksp(libs.inject.compiler)

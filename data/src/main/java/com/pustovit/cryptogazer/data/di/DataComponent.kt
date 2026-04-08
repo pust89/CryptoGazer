@@ -5,7 +5,7 @@ import com.pustovit.cryptogazer.domain.repository.OnboardingRepository
 import me.tatarka.inject.annotations.Component
 import me.tatarka.inject.annotations.Provides
 
-interface DataComponentApi{
+interface DataComponentApi {
 //TODO добавить internal к     OnboardingRepositoryImpl
 }
 
@@ -15,7 +15,9 @@ abstract class DataComponent {
 
     @DataScope
     @Provides
-    protected abstract fun provideOnboardingRepository(
+    protected fun provideOnboardingRepository(
         onboardingRepositoryImpl: OnboardingRepositoryImpl
-    ): OnboardingRepository
+    ): OnboardingRepository {
+        return onboardingRepositoryImpl
+    }
 }
