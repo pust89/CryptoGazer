@@ -36,19 +36,5 @@ class OnboardingViewModel : ViewModel() {
         }
     }
 
-    private fun getOnboardingTopCards(): List<CardState> =
-        OnboardingDetailsCards.entries.map {
-            CardState(
-                id = it.name,
-                title = AppTextState(
-                    text = it.name,
-                    style = AppTypography.titleMedium,
-                ),
-                selected = false,
-                description = AppTextState(
-                    text = it.name + it.name,
-                    style = AppTypography.bodyMedium,
-                ),
-            )
-        }
+    private fun getOnboardingTopCards(): List<CardState> = emptyList()
 }

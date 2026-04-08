@@ -1,6 +1,7 @@
 plugins {
     id("java-library")
     alias(libs.plugins.jetbrains.kotlin.jvm)
+    alias(libs.plugins.google.devtools.ksp)
 }
 java {
     sourceCompatibility = JavaVersion.VERSION_11
@@ -13,5 +14,10 @@ kotlin {
 }
 
 dependencies {
+    implementation(project(":domain"))
+
+    ksp(libs.inject.compiler)
+    implementation(libs.inject.runtime)
+
     implementation(libs.ktor.client.core)
 }
