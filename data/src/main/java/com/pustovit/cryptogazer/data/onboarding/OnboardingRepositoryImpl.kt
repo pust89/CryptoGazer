@@ -4,8 +4,10 @@ import com.pustovit.cryptogazer.domain.model.onboarding.OnboardingCard
 import com.pustovit.cryptogazer.domain.repository.OnboardingRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import me.tatarka.inject.annotations.Inject
 
-internal class OnboardingRepositoryImpl : OnboardingRepository {
+@Inject
+class OnboardingRepositoryImpl : OnboardingRepository {
 
     override fun getOnboardingCard(): Flow<List<OnboardingCard>> {
         return flow { emit(getMockOnboardingCard()) }
