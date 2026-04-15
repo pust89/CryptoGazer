@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.pustovit.cryptogazer.onboarding.tea.OnboardingCommand
 import com.pustovit.cryptogazer.onboarding.tea.OnboardingCommandHandler
 import com.pustovit.cryptogazer.onboarding.tea.OnboardingReducer
+import com.pustovit.cryptogazer.onboarding.tea.OnboardingState
 import com.pustovit.cryptogazer.onboarding.tea.OnboardingUiConverter
 import com.pustovit.cryptogazer.tea.Store
 import com.pustovit.cryptogazer.ui_kit.card.CardEvent
@@ -29,7 +30,7 @@ class OnboardingViewModel @Inject constructor(
             reducer = reducer,
             commandHandler = commandHandler,
             scope = viewModelScope,
-            initialState = com.pustovit.cryptogazer.onboarding.tea.OnboardingState(),
+            initialState = OnboardingState(),
             initialCommands = listOf(OnboardingCommand.LoadCards),
         ).run {
             state.onEach(uiConverter::convert).launchIn(viewModelScope)
