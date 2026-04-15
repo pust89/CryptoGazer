@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.flow
 import me.tatarka.inject.annotations.Inject
 
 @Inject
-class OnboardingRepositoryImpl : OnboardingRepository {
+internal class OnboardingRepositoryImpl : OnboardingRepository {
 
     override fun getOnboardingCard(): Flow<List<OnboardingCard>> {
         return flow { emit(getMockOnboardingCard()) }

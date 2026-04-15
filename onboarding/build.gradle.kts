@@ -2,6 +2,8 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.google.devtools.ksp)
+
 }
 
 android {
@@ -46,6 +48,8 @@ dependencies {
     implementation(project(":ui_kit"))
     implementation(project(":tea"))
     implementation(project(":domain"))
+    ksp(libs.inject.compiler)
+    implementation(libs.inject.runtime)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
