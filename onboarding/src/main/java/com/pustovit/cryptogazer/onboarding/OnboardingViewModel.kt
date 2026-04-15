@@ -2,30 +2,43 @@ package com.pustovit.cryptogazer.onboarding
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.pustovit.cryptogazer.onboarding.tea.OnboardingCommand
+import com.pustovit.cryptogazer.onboarding.tea.OnboardingCommandHandler
+import com.pustovit.cryptogazer.onboarding.tea.OnboardingReducer
+import com.pustovit.cryptogazer.onboarding.tea.OnboardingUiConverter
+import com.pustovit.cryptogazer.tea.Store
 import com.pustovit.cryptogazer.ui_kit.card.CardEvent
-import com.pustovit.cryptogazer.ui_kit.card.CardState
-import com.pustovit.cryptogazer.ui_kit.text.AppTextState
-import com.pustovit.cryptogazer.ui_kit.theme_2.type.AppTypography
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
+import me.tatarka.inject.annotations.Inject
 
-class OnboardingViewModel : ViewModel() {
+class OnboardingViewModel @Inject constructor(
+    val reducer: OnboardingReducer,
+    val commandHandler: OnboardingCommandHandler,
+    val uiConverter: OnboardingUiConverter,
+) : ViewModel() {
 
-    private val _uiState = MutableStateFlow<OnboardingState>(OnboardingState.Loading)
+    private val _uiState = MutableStateFlow<OnboardingUiState>(OnboardingUiState.Loading)
     val uiState = _uiState.asStateFlow()
 
     init {
-        viewModelScope.launch {
-            delay(2000)
-            _uiState.emit(OnboardingState.Details(cards = getOnboardingTopCards()))
+        Store(
+            reducer = reducer,
+            commandHandler = commandHandler,
+            scope = viewModelScope,
+            initialState = com.pustovit.cryptogazer.onboarding.tea.OnboardingState(),
+            initialCommands = listOf(OnboardingCommand.LoadCards),
+        ).run {
+            state.onEach(uiConverter::convert).launchIn(viewModelScope)
         }
     }
 
     fun onOnboardingTopCardEvent(event: CardEvent) = when (event) {
         is CardEvent.Click -> viewModelScope.launch {
-            val currentState = uiState.value as? OnboardingState.Details ?: return@launch
+            val currentState = uiState.value as? OnboardingUiState.Details ?: return@launch
             _uiState.value = currentState.copy(
                 cards = currentState.cards.map { card ->
                     card.copy(
@@ -35,6 +48,4 @@ class OnboardingViewModel : ViewModel() {
             )
         }
     }
-
-    private fun getOnboardingTopCards(): List<CardState> = emptyList()
 }

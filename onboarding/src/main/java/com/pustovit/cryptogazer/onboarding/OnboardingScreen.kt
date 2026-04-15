@@ -62,8 +62,8 @@ fun OnboardingScreen() {
             ){
                 val uiState = viewModel.uiState.collectAsState()
                 when (val state = uiState.value) {
-                    OnboardingState.Loading -> LoadingScreen()
-                    is OnboardingState.Details -> TopCardsScreen(state, viewModel)
+                    OnboardingUiState.Loading -> LoadingScreen()
+                    is OnboardingUiState.Details -> TopCardsScreen(state, viewModel)
                 }
             }
         }
@@ -73,7 +73,7 @@ fun OnboardingScreen() {
 
 @Composable
 private fun TopCardsScreen(
-    uiState: OnboardingState.Details,
+    uiState: OnboardingUiState.Details,
     viewModel: OnboardingViewModel,
 ) {
     val needAppearanceAnimation = remember { mutableStateOf(true) }

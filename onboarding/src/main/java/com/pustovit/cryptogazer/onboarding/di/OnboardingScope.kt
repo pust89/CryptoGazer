@@ -5,6 +5,8 @@ import com.pustovit.cryptogazer.di.ComponentHolder
 import com.pustovit.cryptogazer.di.Deps
 import com.pustovit.cryptogazer.domain.repository.OnboardingRepository
 import com.pustovit.cryptogazer.onboarding.tea.OnboardingCommandHandler
+import com.pustovit.cryptogazer.onboarding.tea.OnboardingReducer
+import com.pustovit.cryptogazer.onboarding.tea.OnboardingUiConverter
 import me.tatarka.inject.annotations.Component
 import me.tatarka.inject.annotations.Provides
 import me.tatarka.inject.annotations.Scope
@@ -30,6 +32,19 @@ abstract class OnboardingComponent(val dependencies: OnboardingDeps) : Comp<Onbo
         return OnboardingCommandHandler(
             onboardingRepository = dependencies.onboardingRepository,
         )
+    }
+
+    @Provides
+    @OnboardingScope
+    fun providesOnboardingReducer(): OnboardingReducer {
+        return OnboardingReducer()
+    }
+
+
+    @Provides
+    @OnboardingScope
+    fun providesOnboardingUiConverter(): OnboardingUiConverter {
+        return OnboardingUiConverter()
     }
 }
 

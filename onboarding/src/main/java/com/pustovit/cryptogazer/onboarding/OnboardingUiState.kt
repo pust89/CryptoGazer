@@ -2,18 +2,17 @@ package com.pustovit.cryptogazer.onboarding
 
 import androidx.compose.runtime.Immutable
 import com.pustovit.cryptogazer.ui_kit.card.CardState
-import com.pustovit.cryptogazer.ui_kit.text.AppTextState
 
 
 @Immutable
-sealed interface OnboardingState {
+sealed interface OnboardingUiState {
 
     @Immutable
-    data object Loading : OnboardingState
+    data object Loading : OnboardingUiState
 
     @Immutable
     data class Details(
         val cards: List<CardState>,
-    ) : OnboardingState
+    ) : OnboardingUiState
 
 }
