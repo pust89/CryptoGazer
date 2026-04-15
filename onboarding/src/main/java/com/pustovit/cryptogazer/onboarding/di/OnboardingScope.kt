@@ -1,6 +1,7 @@
 package com.pustovit.cryptogazer.onboarding.di
 
 import com.pustovit.cryptogazer.di.Comp
+import com.pustovit.cryptogazer.di.ComponentHolder
 import com.pustovit.cryptogazer.di.Deps
 import com.pustovit.cryptogazer.domain.repository.OnboardingRepository
 import com.pustovit.cryptogazer.onboarding.tea.OnboardingCommandHandler
@@ -22,7 +23,7 @@ interface OnboardingDeps : Deps {
 
 @OnboardingScope
 @Component
-abstract class OnboardingComponent(val dependencies: OnboardingDeps) : Comp {
+abstract class OnboardingComponent(val dependencies: OnboardingDeps) : Comp<OnboardingDeps> {
 
     @Provides
     fun providesOnboardingCommandHandler(): OnboardingCommandHandler {
@@ -30,5 +31,9 @@ abstract class OnboardingComponent(val dependencies: OnboardingDeps) : Comp {
             onboardingRepository = dependencies.onboardingRepository,
         )
     }
+}
+
+object OnboardingComponentHolder : ComponentHolder<OnboardingDeps, OnboardingComponent> {
+    override var component: OnboardingComponent? = null
 
 }

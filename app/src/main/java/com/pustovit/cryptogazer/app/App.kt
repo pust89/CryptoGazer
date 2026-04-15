@@ -5,6 +5,7 @@ import com.pustovit.cryptogazer.data.di.DataComponent
 import com.pustovit.cryptogazer.data.di.create
 import com.pustovit.cryptogazer.domain.repository.OnboardingRepository
 import com.pustovit.cryptogazer.onboarding.di.OnboardingComponent
+import com.pustovit.cryptogazer.onboarding.di.OnboardingComponentHolder
 import com.pustovit.cryptogazer.onboarding.di.OnboardingDeps
 import com.pustovit.cryptogazer.onboarding.di.create
 
@@ -16,17 +17,21 @@ class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        //dataComponent.provideOnboardingRepository()
         initOnboardingComponent(dataComponent)
     }
 
     private fun initOnboardingComponent(dataComponent: DataComponent) {
+        var component = OnboardingComponentHolder.component
+        if (component != null) return
 
-        OnboardingComponent::class.create(
+        component = OnboardingComponent::class.create(
             dependencies = object : OnboardingDeps {
                 override val onboardingRepository: OnboardingRepository =
                     dataComponent.onboardingRepository
-            }
+            },
         )
+
+        OnboardingComponentHolder.component = component
     }
 }
+
