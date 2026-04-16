@@ -1,14 +1,11 @@
 package com.pustovit.cryptogazer.tea
 
-import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.launchIn
@@ -16,7 +13,6 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.merge
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
-import kotlinx.coroutines.flow.shareIn
 import kotlinx.coroutines.launch
 import kotlin.collections.forEach
 import kotlin.coroutines.CoroutineContext
@@ -52,9 +48,8 @@ class Store<State, Event : E, SideEffect : S, Command : C>(
 
     init {
         scope.launch(context = coroutineContext) {
-            val domainEvents = commandHandler.getEvents()
             merge(
-                domainEvents,
+                commandHandler.getEvents(),
                 uiEvents
             )
                 .map { event ->
@@ -65,15 +60,16 @@ class Store<State, Event : E, SideEffect : S, Command : C>(
                     )
                 }
                 .onEach(::parseUpdate)
+                .onStart {
+                    println("actTag onStart initialCommands.size=${initialCommands?.size}")
+                    initialCommands?.forEach { command ->
+                        commandHandler.execute(command)
+                    }
+
+                }
                 .launchIn(this)
         }
 
-        scope.launch {
-            println("actTag onStart initialCommands.size=${initialCommands?.size}")
-            initialCommands?.forEach { command ->
-                commandHandler.execute(command)
-            }
-        }
     }
 
     private suspend fun parseUpdate(update: Update<State, SideEffect, Command>) {

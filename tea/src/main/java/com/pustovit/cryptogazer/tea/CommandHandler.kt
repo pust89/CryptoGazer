@@ -6,8 +6,8 @@ import com.pustovit.cryptogazer.tea.Command as C
 
 interface CommandHandler<Command : C, Event : E> {
 
-    fun getEvents(): Flow<Event>
+     fun getEvents(): Flow<Event>
 
-    suspend fun execute(command: Command)
+     suspend fun execute(command: Command)
 
 }
