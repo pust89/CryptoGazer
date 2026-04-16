@@ -4,6 +4,7 @@ import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
@@ -23,6 +24,7 @@ import com.pustovit.cryptogazer.tea.Command as C
 class Store<State, Event : E, SideEffect : S, Command : C>(
     val reducer: Reducer<State, Event, SideEffect, Command>,
     val commandHandler: CommandHandler<Command, Event>,
+    val uiEvents: Flow<Event>,
     val scope: CoroutineScope,
     initialState: State,
     val initialCommands: List<Command>? = null,
@@ -34,17 +36,12 @@ class Store<State, Event : E, SideEffect : S, Command : C>(
     private val coroutineContext: CoroutineContext = SupervisorJob() +
             exceptionHandler + Dispatchers.Main
 
-    private val uiEvents = MutableSharedFlow<Event>()
-
     private val _state = MutableStateFlow<State>(initialState)
     val state = _state.asStateFlow()
 
     private val _sideEffects = MutableSharedFlow<SideEffect>()
     val sideEffects = _sideEffects.asSharedFlow()
 
-    suspend fun handleEvent(event: Event) {
-        uiEvents.emit(event)
-    }
 
     init {
         scope.launch(context = coroutineContext) {

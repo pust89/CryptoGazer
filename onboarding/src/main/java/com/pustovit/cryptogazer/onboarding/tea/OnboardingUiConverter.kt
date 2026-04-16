@@ -29,6 +29,7 @@ class OnboardingUiConverter {
                         text = it.cardDescription,
                         style = AppTypography.bodyMedium
                     ),
+                    selected = it.id == state.selectedCardId
                 )
             }
         )

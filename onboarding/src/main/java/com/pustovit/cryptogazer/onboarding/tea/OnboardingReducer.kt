@@ -25,7 +25,20 @@ class OnboardingReducer : Reducer<
         state: State,
         event: OnboardingEvent.UiEvent
     ): Update<State, SideEffect, Command> {
-        return Update.nothing()
+        return when (event) {
+            is OnboardingEvent.UiEvent.OnTopCardClick -> reduceOnTopCardClick(state, event)
+        }
+    }
+
+    private fun reduceOnTopCardClick(
+        state: State,
+        event: OnboardingEvent.UiEvent.OnTopCardClick
+    ): Update<State, SideEffect, Command> {
+        return Update.from(
+            state = state.copy(
+                selectedCardId = event.cardId,
+            )
+        )
     }
 
     private fun reduceDomainEvent(
