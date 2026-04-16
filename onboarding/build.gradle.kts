@@ -45,12 +45,15 @@ android {
 }
 
 dependencies {
-    implementation(project(":di"))
     implementation(project(":ui_kit"))
     implementation(project(":tea"))
     implementation(project(":domain"))
+
+    implementation(project(":di"))
     ksp(libs.inject.compiler)
     implementation(libs.inject.runtime)
+    implementation(libs.kotlin.inject.viewmodel.runtime)
+    implementation(libs.kotlin.inject.viewmodel.runtime.compose)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

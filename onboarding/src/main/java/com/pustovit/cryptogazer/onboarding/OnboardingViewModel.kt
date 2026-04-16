@@ -2,6 +2,7 @@ package com.pustovit.cryptogazer.onboarding
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.pustovit.cryptogazer.onboarding.di.OnboardingScope
 import com.pustovit.cryptogazer.onboarding.tea.OnboardingCommand
 import com.pustovit.cryptogazer.onboarding.tea.OnboardingCommandHandler
 import com.pustovit.cryptogazer.onboarding.tea.OnboardingReducer
@@ -9,6 +10,7 @@ import com.pustovit.cryptogazer.onboarding.tea.OnboardingState
 import com.pustovit.cryptogazer.onboarding.tea.OnboardingUiConverter
 import com.pustovit.cryptogazer.tea.Store
 import com.pustovit.cryptogazer.ui_kit.card.CardEvent
+import com.teobaranga.kotlin.inject.viewmodel.runtime.ContributesViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.launchIn
@@ -16,7 +18,9 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import me.tatarka.inject.annotations.Inject
 
-class OnboardingViewModel @Inject constructor(
+@Inject
+@ContributesViewModel(OnboardingScope::class)
+class OnboardingViewModel(
     val reducer: OnboardingReducer,
     val commandHandler: OnboardingCommandHandler,
     val uiConverter: OnboardingUiConverter,

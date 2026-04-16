@@ -17,6 +17,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.key
@@ -28,13 +29,36 @@ import androidx.compose.ui.draw.BlurredEdgeTreatment
 import androidx.compose.ui.draw.blur
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.ViewModelProvider
+import com.pustovit.cryptogazer.di.LocalViewModelFactoryOwner
+import com.pustovit.cryptogazer.di.ViewModelFactoryOwner
+import com.pustovit.cryptogazer.onboarding.di.OnboardingComponent
+import com.pustovit.cryptogazer.onboarding.di.OnboardingComponentHolder
 import com.pustovit.cryptogazer.ui_kit.card.Card
 import com.pustovit.cryptogazer.ui_kit.theme_2.AppTheme
+import com.teobaranga.kotlin.inject.viewmodel.runtime.compose.injectedViewModel
 
 
 @Composable
-fun OnboardingScreen() {
-    val viewModel = remember { OnboardingViewModel() }
+fun OnboardingScreen(
+    component: OnboardingComponent = OnboardingComponentHolder.required(),
+) {
+    CompositionLocalProvider(
+        // Provide a way to access the ViewModel factory to injectedViewModel
+        // calls down the composable tree
+        LocalViewModelFactoryOwner provides object : ViewModelFactoryOwner {
+            override val viewModelFactory: ViewModelProvider.Factory
+                get() = component.vmFactory
+        }
+    ) {
+        // No explicit factory needed. Works with navigation as well.
+        val viewModel: OnboardingViewModel = injectedViewModel<OnboardingViewModel>()
+        OnboardingScreen(viewModel)
+    }
+}
+
+@Composable
+private fun OnboardingScreen(viewModel: OnboardingViewModel) {
     Surface(
         color = Color.Transparent,
         modifier = Modifier
@@ -59,7 +83,7 @@ fun OnboardingScreen() {
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(paddingValues)
-            ){
+            ) {
                 val uiState = viewModel.uiState.collectAsState()
                 when (val state = uiState.value) {
                     OnboardingUiState.Loading -> LoadingScreen()

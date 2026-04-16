@@ -47,15 +47,11 @@ android {
 }
 
 dependencies {
-    implementation(project(":di"))
     implementation(project(":data"))
     implementation(project(":domain"))
     implementation(project(":ui_kit"))
 
     implementation(project(":onboarding"))
-
-    ksp(libs.inject.compiler)
-    implementation(libs.inject.runtime)
 
     implementation(libs.decompose)
 
@@ -63,6 +59,11 @@ dependencies {
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
 
+    implementation(project(":di"))
+    ksp(libs.inject.compiler)
+    implementation(libs.inject.runtime)
+    implementation(libs.kotlin.inject.viewmodel.runtime)
+    implementation(libs.kotlin.inject.viewmodel.runtime.compose)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

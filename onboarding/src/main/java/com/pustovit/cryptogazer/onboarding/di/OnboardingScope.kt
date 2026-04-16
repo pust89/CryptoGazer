@@ -1,5 +1,6 @@
 package com.pustovit.cryptogazer.onboarding.di
 
+import androidx.lifecycle.ViewModelProvider
 import com.pustovit.cryptogazer.di.Comp
 import com.pustovit.cryptogazer.di.ComponentHolder
 import com.pustovit.cryptogazer.di.Deps
@@ -46,6 +47,9 @@ abstract class OnboardingComponent(val dependencies: OnboardingDeps) : Comp<Onbo
     fun providesOnboardingUiConverter(): OnboardingUiConverter {
         return OnboardingUiConverter()
     }
+
+    abstract val vmFactory: ViewModelProvider.Factory
+
 }
 
 object OnboardingComponentHolder : ComponentHolder<OnboardingDeps, OnboardingComponent> {
