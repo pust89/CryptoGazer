@@ -37,7 +37,9 @@ class OnboardingViewModel(
             initialState = OnboardingState(),
             initialCommands = listOf(OnboardingCommand.LoadCards),
         ).run {
-            state.onEach(uiConverter::convert).launchIn(viewModelScope)
+            state
+                .onEach { _uiState.emit(uiConverter.convert(it)) }
+                .launchIn(viewModelScope)
         }
     }
 
