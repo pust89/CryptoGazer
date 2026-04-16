@@ -30,12 +30,12 @@ import androidx.compose.ui.draw.blur
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModelProvider
-import com.pustovit.cryptogazer.di.LocalViewModelFactoryOwner
-import com.pustovit.cryptogazer.di.ViewModelFactoryOwner
 import com.pustovit.cryptogazer.onboarding.di.OnboardingComponent
 import com.pustovit.cryptogazer.onboarding.di.OnboardingComponentHolder
 import com.pustovit.cryptogazer.ui_kit.card.Card
 import com.pustovit.cryptogazer.ui_kit.theme_2.AppTheme
+import com.teobaranga.kotlin.inject.viewmodel.runtime.compose.LocalViewModelFactoryOwner
+import com.teobaranga.kotlin.inject.viewmodel.runtime.compose.ViewModelFactoryOwner
 import com.teobaranga.kotlin.inject.viewmodel.runtime.compose.injectedViewModel
 
 
@@ -43,12 +43,13 @@ import com.teobaranga.kotlin.inject.viewmodel.runtime.compose.injectedViewModel
 fun OnboardingScreen(
     component: OnboardingComponent = OnboardingComponentHolder.required(),
 ) {
+    LocalViewModelFactoryOwner
     CompositionLocalProvider(
         // Provide a way to access the ViewModel factory to injectedViewModel
         // calls down the composable tree
         LocalViewModelFactoryOwner provides object : ViewModelFactoryOwner {
             override val viewModelFactory: ViewModelProvider.Factory
-                get() = component.vmFactory
+                get() = component.provideViewModelFactory()
         }
     ) {
         // No explicit factory needed. Works with navigation as well.
