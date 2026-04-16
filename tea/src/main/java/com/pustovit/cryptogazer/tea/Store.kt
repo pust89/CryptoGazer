@@ -31,8 +31,7 @@ class Store<State, Event : E, SideEffect : S, Command : C>(
     }
 ) {
     private val coroutineContext: CoroutineContext = SupervisorJob() +
-            exceptionHandler +
-            Dispatchers.IO
+            exceptionHandler + Dispatchers.Main
 
     private val uiEvents = MutableSharedFlow<Event>()
 
@@ -51,7 +50,13 @@ class Store<State, Event : E, SideEffect : S, Command : C>(
             merge(
                 commandHandler.getEvents(),
                 uiEvents
-            ).map(reducer::reduce)
+            )
+                .map { event ->
+                    reducer.reduce(
+                        state = _state.value,
+                        event = event,
+                    )
+                }
                 .onEach(::parseUpdate)
                 .onStart {
                     initialCommands?.forEach { command ->
@@ -62,17 +67,11 @@ class Store<State, Event : E, SideEffect : S, Command : C>(
         }
     }
 
-    private suspend fun parseUpdate(update: Update<State, SideEffect, Command>) {
-        update.state?.let { state ->
-            _state.emit(state)
-        }
-
-        update.sideEffects?.forEach { sideEffect ->
-            _sideEffects.emit(sideEffect)
-        }
-
-        update.commands?.forEach { command ->
-            commandHandler.execute(command)
-        }
+    private suspend fun parseUpdate(
+        update: Update<State, SideEffect, Command>
+    ) = with(update) {
+        state?.let { state -> _state.emit(state) }
+        sideEffects?.forEach { sideEffect -> _sideEffects.emit(sideEffect) }
+        commands?.forEach { command -> commandHandler.execute(command) }
     }
 }

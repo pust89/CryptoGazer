@@ -11,6 +11,6 @@ sealed interface OnboardingEvent : Event {
     }
 
     sealed interface DomainEvent : OnboardingEvent {
-        data class CardsLoaded(val resource: Resource<List<OnboardingCard>>) : UiEvent
+        data class CardsLoaded(val resource: Resource<List<OnboardingCard>>) : DomainEvent
     }
 }

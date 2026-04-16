@@ -5,5 +5,5 @@ import com.pustovit.cryptogazer.tea.SideEffect as S
 import com.pustovit.cryptogazer.tea.Command as C
 
 interface Reducer<State, Event : E, SideEffect : S, Command : C> {
-    fun reduce(event: Event): Update<State, SideEffect, Command>
+    fun reduce(state: State, event: Event): Update<State, SideEffect, Command>
 }
