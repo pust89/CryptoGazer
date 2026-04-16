@@ -1,6 +1,5 @@
 package com.pustovit.cryptogazer.onboarding
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.pustovit.cryptogazer.onboarding.di.OnboardingScope
@@ -39,10 +38,7 @@ class OnboardingViewModel(
             initialCommands = listOf(OnboardingCommand.LoadCards),
         ).run {
             state
-                .onEach {
-                    _uiState.emit(uiConverter.convert(it))
-                    Log.d("actTag", "uiState onEach $it ")
-                }
+                .onEach { _uiState.emit(uiConverter.convert(it)) }
                 .launchIn(viewModelScope)
         }
     }
